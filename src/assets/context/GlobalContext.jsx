@@ -66,7 +66,7 @@ export function VideogameProvider({ children }) {
             const query = params.toString();
 
             const url =
-                `${import.meta.env.VITE_API_URL}/products${query ? `?${query}` : ""}`;
+                `${import.meta.env.VITE_API_URL}/videogames${query ? `?${query}` : ""}`;
 
             const res = await fetch(url);
 
