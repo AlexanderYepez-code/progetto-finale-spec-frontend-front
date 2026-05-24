@@ -1,61 +1,37 @@
+// App.jsx
+// Shell principale — monta CompareModal UNA sola volta qui
+// così il modal è disponibile su TUTTE le pagine dell'app
+// senza doverlo reimportare in ogni componente.
+ 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import "./App.css";
-
-// Layout
-import Header from "../src/assets/component/header";
-import Footer from "./assets/component/footer";
-
-// Pages
-import HomePage from "./assets/pages/Homepage";
-import FavoritesPage from "./assets/pages/FavoritesPage.jsx";
-
-// Context
 import { VideogameProvider } from "./assets/context/GlobalContext";
-
-function App() {
-
+import CompareModal from "./assets/components/compareModal";
+import HomePage from "./assets/pages/Homepage";
+import Layout from "./assets/layout/layout"
+// import DetailPage from "./pages/DetailPage"; // ← la tua pagina dettaglio
+ 
+export default function App() {
     return (
-
         <VideogameProvider>
-
             <BrowserRouter>
+ 
+                {/*
+                    ✅ CompareModal sta QUI, fuori dalle Route.
+                    Legge isCompareOpen dal context e si mostra
+                    su qualsiasi pagina l'utente stia visitando.
+                */}
+                <CompareModal />
+                <Layout>
+                <Routes>
+                    <Route path="/"           element={<HomePage />} />
+                    {/* <Route path="/game/:id" element={<DetailPage />} /> */}
+                </Routes>
 
-                <div className="layout">
-
-                    {/* HEADER */}
-                    <Header />
-
-                    {/* CONTENUTO PAGINE */}
-                    <main className="main-content">
-
-                        <Routes>
-
-                            {/* HOME */}
-                            <Route
-                                path="/"
-                                element={<HomePage />}
-                            />
-
-                            {/* PREFERITI */}
-                            <Route
-                                path="/favorites"
-                                element={<FavoritesPage />}
-                            />
-
-                        </Routes>
-
-                    </main>
-
-                    {/* FOOTER */}
-                    <Footer />
-
-                </div>
-
+                </Layout>
+                
+ 
+ 
             </BrowserRouter>
-
         </VideogameProvider>
     );
 }
-
-export default App;

@@ -1,99 +1,122 @@
-import { createContext, useState, useEffect } from "react";
+// GlobalContext.jsx
+// Context globale — aggiunge la logica del COMPARATORE al context esistente
+//
+// Stato aggiunto:
+//   compareList   — array di giochi selezionati (max 3)
+//   isCompareOpen — booleano per aprire/chiudere il modal
+//
+// Azioni aggiunte:
+//   toggleCompare(game)   — aggiunge o rimuove un gioco dal confronto
+//   clearCompare()        — svuota la lista confronto
+//   setCompareOpen(bool)  — apre o chiude il modal
+//
+// Il CompareModal va reso UNA sola volta nell'app shell (es. App.jsx)
+// così è disponibile su tutte le pagine.
 
-export const VideogameContext = createContext(null);
 
-export function VideogameProvider({ children }) {
+import { createContext, useState , useEffect } from "react"; // importiamo i hook neccesari per lo sviluppo dell' app da react
 
+// esportiamo il context 
+export const VideogameContext = createContext();
+
+//exdportimao il provider
+export function VideogameProvider ({ children }){
+    // State esistenti per i games e il loading
     const [games, setGames] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [filters, setFilters] = useState({});
+    const [loading, setloading] = useState(true);
+    //QUi facciamo l'import per la url della chiamata
+    const url = import.meta.env.VITE_API_URL
 
-    // Leggiamo i preferiti salvati nel localStorage
-    const [favorites, setFavorites] = useState(() => {
+    const [compareList, setCompareList] = useState([]);
+    const [isCompareOpen, setCompareOpen] = useState(false);
 
-        const savedFavorites = localStorage.getItem("favorites");
-
-        // Se esistono preferiti salvati li convertiamo da JSON a array
-        return savedFavorites ? JSON.parse(savedFavorites) : [];
+    // State per i preferiti e salvaimo nel local Staorage
+    const [favorites, setFavorites] = useState(()=>{
+        try{
+            return JSON.parse(localStorage.getItem("vg_favorites")) ?? []; // se json.parse è null allora prednio l'array vuoto (è un operatore Nullish coalescing )
+        }catch {
+            return[]
+        }
     });
 
-    // Funzione aggiunta/rimozione preferiti
-    function toggleFavorite(game) {
+    //Qui facciamo la chiamata api 
+    useEffect(()=>{
+        //questa frunzione ritorna ujna promise che gestiamo trafromadona in json e facciamo un minimo di gestotiore errore 
+        const getGames = async() =>{
+            try{
+                const response = await fetch(`${url}/videogames`);
+                const data = await response.json();
+                setGames(data)
+            }catch(error){
+                console.error(`Errore nella chiamata api `, error)
+            }finally{
+                // si esegue sempre anche se la operazione va in errore e mette in loading in false 
+                setloading(false)
+            }
+            
 
-        const isFavorite = favorites.some(
-            item => item.id === game.id
-        );
-
-        let updatedFavorites;
-
-        if (isFavorite) {
-
-            updatedFavorites = favorites.filter(
-                item => item.id !== game.id
-            );
-
-        } else {
-
-            updatedFavorites = [...favorites, game];
         }
+        getGames()
 
-        // Aggiorniamo lo stato
-        setFavorites(updatedFavorites);
+    },[]);
+    // qui facciamo la sezione dei preferiti e la persistenza
+    useEffect(()=>{
+        localStorage.setItem("vg_favorites", JSON.stringify(favorites));
+    },[favorites]);
 
-        // Salviamo nel localStorage
-        localStorage.setItem(
-            "favorites",
-            JSON.stringify(updatedFavorites)
-        );
+    //funzione che toiglie o aggiunge i preeferiti se ci sono oppure no 
+    const toggleFavorite = (game) => {
+        setFavorites((prev)=>{
+            return prev.some(p => p.id === game.id) 
+            ? prev.filter(p => p.id !== game.id) // se ce un id allora lo filtra e lo rimuove con il filter
+            : [...prev,game] // se non esiste allora lo aggiunge
+        });
+
     }
 
-    useEffect(() => {
-
-        const fetchGames = async () => {
-
-            setLoading(true);
-
-            const params = new URLSearchParams();
-
-            if (filters.search) {
-                params.append("search", filters.search);
+    //togle per il comparatore
+    const toggleCompare = (game) => {
+        setCompareList((prev)=>{
+            const esisteGia = prev.some(g => g.id === game.id);
+            // se esiste allora filtriamo e lo togliamo e restituiamo l'array filtrato, faccimao un controolo che se non ci sono piu elementi allora chiuddimao il comparatore 
+            if(esisteGia){
+                const compara = prev.filter(p => p.id !== game.id)
+                if(compara.length === 0) setCompareOpen(false);
+                return compara;
             }
+            // se il dato precedente e maggiore o uguale  a 3 allore returniamo il dato precendente 
 
-            if (filters.category) {
-                params.append("category", filters.category);
-            }
+            if(prev.length >= 3) return prev;
+            
+            // se tutte le condizione sono false allora retuniamo il dato precendete e aggiungiamo quello nuovo 
+            return [...prev, game];
+        });
 
-            const query = params.toString();
+    }
 
-            const url =
-                `${import.meta.env.VITE_API_URL}/videogames${query ? `?${query}` : ""}`;
+    // Funzione per lo svuotamento del comparatore 
+    const PuliziaComparatore = ()=> {
+        setCompareList([]);
+        setCompareOpen(false);
+    }
 
-            const res = await fetch(url);
+    const value = {
+        //lista dei giroche e loading
+        games , loading,
+        //preferiti e la funzione che lo aggirna 
+        favorites, toggleFavorite,
+        //Tutte gli stati e funzioner per far funzionare il comparatore
+        compareList, toggleCompare , PuliziaComparatore , setCompareOpen , isCompareOpen
 
-            const data = await res.json();
-
-            setGames(data);
-
-            setLoading(false);
-        };
-
-        fetchGames();
-
-    }, [filters]);
-
-    return (
-
-        <VideogameContext.Provider
-            value={{
-                games,
-                filters,
-                setFilters,
-                loading,
-                favorites,
-                toggleFavorite
-            }}
-        >
+    }
+    return(
+        <VideogameContext.Provider value = {value}>
             {children}
         </VideogameContext.Provider>
     );
+
+
+
+
+
 }
