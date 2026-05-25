@@ -33,7 +33,7 @@ export function VideogameProvider ({ children }){
     // State per i preferiti e salvaimo nel local Staorage
     const [favorites, setFavorites] = useState(()=>{
         try{
-            return JSON.parse(localStorage.getItem("vg_favorites")) ?? []; // se json.parse è null allora prednio l'array vuoto (è un operatore Nullish coalescing )
+            return JSON.parse(localStorage.getItem("vg_favorites")) ?? []; // se json.parse = "trafroma queelo chge ce nel local storage che è una stringa json in un oggetto di javascript" è null allora prednio l'array vuoto (è un operatore Nullish coalescing )
         }catch {
             return[]
         }
@@ -61,7 +61,7 @@ export function VideogameProvider ({ children }){
     },[]);
     // qui facciamo la sezione dei preferiti e la persistenza
     useEffect(()=>{
-        localStorage.setItem("vg_favorites", JSON.stringify(favorites));
+        localStorage.setItem("vg_favorites", JSON.stringify(favorites)); // trafromiamo favorites in una stringa JSON 
     },[favorites]);
 
     //funzione che toiglie o aggiunge i preeferiti se ci sono oppure no 
