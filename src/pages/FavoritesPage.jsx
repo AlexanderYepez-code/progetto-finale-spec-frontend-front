@@ -20,7 +20,7 @@ export default function FavoritesPage() {
                 {/* ── HEADER SEZIONE ── */}
                 <div className="fav-page__header">
                     <h1 className="fav-page__title">
-                        <span className="fav-page__title-icon">♥</span>
+                        <span className="fav-page__title-icon"><i className="bi bi-heart-fill"></i></span>
                         I tuoi Preferiti
                     </h1>
                     <p className="fav-page__count">
@@ -62,24 +62,6 @@ export default function FavoritesPage() {
                                                 {game.title}
                                             </Link>
 
-                                            {/* meta veloce */}
-                                            <div className="fav-card__meta">
-                                                {game.rating !== undefined && (
-                                                    <span className="fav-card__meta-item">
-                                                        ⭐ {game.rating}
-                                                    </span>
-                                                )}
-                                                {game.price !== undefined && (
-                                                    <span className="fav-card__meta-item">
-                                                        💰 {game.price}€
-                                                    </span>
-                                                )}
-                                                {game.pegi !== undefined && (
-                                                    <span className="fav-card__meta-item">
-                                                        🔞 PEGI {game.pegi}
-                                                    </span>
-                                                )}
-                                            </div>
 
                                         </div>
 
@@ -98,7 +80,7 @@ export default function FavoritesPage() {
                                                     disabled={disabled}
                                                     onChange={() => toggleCompare(game)}
                                                 />
-                                                <span>{comparing ? "✔ Nel confronto" : "⇄ Confronta"}</span>
+                                                <span>{comparing ? "Nel confronto" : "⇄ Confronta"}</span>
                                             </label>
 
                                             {/* rimuovi preferito */}
@@ -107,7 +89,7 @@ export default function FavoritesPage() {
                                                 onClick={() => toggleFavorite(game)}
                                                 title="Rimuovi dai preferiti"
                                             >
-                                                ♥ Rimuovi
+                                                 Rimuovi
                                             </button>
 
                                         </div>

@@ -16,7 +16,10 @@
     --text-mid: #aaa;
 }
 
-a {
+footer a {
+    text-decoration: none;
+}
+main a{
     text-decoration: none;
 }
 
@@ -57,6 +60,7 @@ a {
     color: #0f0f13;
     border: none;
     padding: .45rem 1.1rem;
+    margin-left: 10px;
     font-family: inherit;
     font-weight: 700;
     font-size: .85rem;
@@ -113,12 +117,13 @@ a {
     padding: .75rem 1rem;
     border: 1px solid #2a2a3a;
     background: #16161e;
-    transition: .2s;
+    transition: .5s;
 }
 
 .vg-item:hover {
     border-color: #f5c518;
     background: #1c1c28;
+    scale: 1.05;
 }
 
 .vg-item--comparing {
@@ -206,6 +211,7 @@ a {
 .vg-compare-check {
     accent-color: #f5c518;
     cursor: pointer;
+    background-color: #2a2a3a;
 }
 
 /* ─────────────────────────────
@@ -285,12 +291,9 @@ a {
 
 }
 
-/* ─────────────────────────────
-   COMPARATORE MODAL
-───────────────────────────── */
 
 /* ─────────────────────────────
-   COMPARE MODAL — sostituisce il vecchio .cm-*
+   COMPARE MODAL 
 ───────────────────────────── */
 
 .cm-backdrop {
@@ -501,7 +504,7 @@ a {
 
 
 /* ─────────────────────────────
-   🎮 GAME DETAIL PAGE (AGGIUNTO)
+   🎮 GAME DETAIL PAGE
 ───────────────────────────── */
 
 .game-detail {
@@ -780,7 +783,6 @@ a {
 
 /* ─────────────────────────────
    FAVORITES PAGE
-   Da aggiungere in fondo a styles.css
 ───────────────────────────── */
 .bg_page{
         background-color: #0f0f13;
@@ -789,6 +791,7 @@ a {
     max-width: 1100px;
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
+    min-height: 750px;
 
 }
 
@@ -1019,7 +1022,6 @@ a {
 
 /* ─────────────────────────────
    NAV 
-   (dentro .vg-header che è già flex + space-between)
 ───────────────────────────── */
 
 /* il logo ora è un link, azzeriamo gli stili */
@@ -1056,7 +1058,7 @@ a.vg-logo {
     background: var(--bg-card);
 }
 /* ─────────────────────────────
-   FILTRI — da aggiungere in fondo a styles.css
+   FILTRI
 ───────────────────────────── */
  
 .vg-filters {
@@ -1159,6 +1161,183 @@ a.vg-logo {
     white-space: nowrap;
     margin-left: auto;
 }
+/* ─────────────────────────────
+   CONTACT PAGE
+───────────────────────────── */
+main{
+    background-color: #0f0f13;
+}
+.vg-contact-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+    background-color: #0f0f13;
+}
+
+.vg-contact-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 1rem;
+}
+
+.vg-contact-title {
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: .5rem;
+}
+
+.vg-contact-subtitle {
+    color: var(--text-muted);
+    font-size: .9rem;
+}
+
+.vg-contact-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+}
+
+.vg-contact-profile {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.vg-contact-avatar {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+
+    /* effetto card */
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+    /* centratura contenuto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* immagine dentro */
+.vg-contact-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    /* leggero effetto “pulito” */
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* hover leggero (effetto pro) */
+.vg-contact-avatar:hover img {
+    transform: scale(1.15);
+}
+
+.vg-contact-info h2 {
+    color: var(--accent);
+    margin-bottom: .5rem;
+}
+
+.vg-contact-info p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.vg-contact-section {
+    margin-bottom: 2rem;
+}
+
+.vg-contact-section:last-child {
+    margin-bottom: 0;
+}
+
+.vg-contact-section-title {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-size: .95rem;
+}
+
+.vg-contact-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.vg-contact-skill {
+    background: var(--bg-base);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: .5rem .9rem;
+    font-size: .8rem;
+    transition: .2s;
+}
+
+.vg-contact-skill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.vg-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.vg-contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.vg-contact-field label {
+    color: var(--text-mid);
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.vg-contact-field input,
+.vg-contact-field textarea {
+    background: var(--bg-base);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    padding: .8rem;
+    outline: none;
+    resize: vertical;
+}
+
+.vg-contact-field input:focus,
+.vg-contact-field textarea:focus {
+    border-color: var(--accent);
+}
+
+.vg-contact-btn {
+    align-self: flex-start;
+    background: var(--accent);
+    color: var(--bg-base);
+    border: none;
+    padding: .8rem 1.4rem;
+    font-family: inherit;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.vg-contact-btn:hover {
+    background: var(--accent-hover);
+}
+
 
 /* RESPONSIVE */
 @media (max-width: 800px) {
@@ -1238,6 +1417,19 @@ a.vg-logo {
 
     .game-detail__meta {
         grid-template-columns: 1fr;
+    }
+        .vg-contact-profile {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .vg-contact-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .vg-contact-btn {
+        width: 100%;
     }
 }
 

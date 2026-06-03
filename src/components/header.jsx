@@ -13,7 +13,7 @@ export default function Header() {
 
             {/* ── LOGO ── */}
             <Link to="/" className="vg-logo">
-                🎮 GameVault
+                GameVault
             </Link>
 
             {/* ── NAV ── */}
@@ -34,28 +34,28 @@ export default function Header() {
                         `vg-nav__link ${isActive ? "vg-nav__link--active" : ""}`
                     }
                 >
-                    ♥ Preferiti
+                    Preferiti
                 </NavLink>
 
                 <NavLink
-                    to="/contacts"
+                    to="/contatti"
                     className={({ isActive }) =>
                         `vg-nav__link ${isActive ? "vg-nav__link--active" : ""}`
                     }
                 >
                     Contatti
                 </NavLink>
+                {/* ── BOTTONE COMPARATORE ── */}
+                {compareList.length > 0 && (
+                    <button
+                        className="vg-compare-trigger"
+                        onClick={() => setCompareOpen(true)}
+                    >
+                        Confronta ({compareList.length})
+                    </button>
+                )}
             </nav>
 
-            {/* ── BOTTONE COMPARATORE ── */}
-            {compareList.length > 0 && (
-                <button
-                    className="vg-compare-trigger"
-                    onClick={() => setCompareOpen(true)}
-                >
-                    Confronta ({compareList.length})
-                </button>
-            )}
 
         </header>
     );

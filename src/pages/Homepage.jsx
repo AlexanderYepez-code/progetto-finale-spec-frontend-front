@@ -22,9 +22,9 @@ export default function HomePage() {
         setSort,
     } = useContext(VideogameContext);
         // stato locale per l'input — si aggiorna ad ogni tasto
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState(search)
  
-    // valore debounced — cambia solo dopo 400ms di inattività
+    // valore debounced — cambia solo dopo 1000ms di inattività
     const debouncedSearch = useDebounce(inputValue, 1000);
  
     // quando il debounced cambia, aggiorna il context
@@ -40,7 +40,7 @@ export default function HomePage() {
 
                 {/* SEARCH */}
                 <div className="vg-filters__search-wrap">
-                    <span className="vg-filters__search-icon">🔍</span>
+                    <span className="vg-filters__search-icon"><i className="bi bi-search"></i></span>
                     <input
                         className="vg-filters__search"
                         placeholder="Cerca gioco..."
@@ -74,8 +74,7 @@ export default function HomePage() {
                     <option value="Party / Rhythm">Party / Rhythm</option>
                     <option value="Racing">Racing</option>
                     <option value="Platform">Platform</option>
-                    <option value="Survival">Esplorazione</option>
-                    {/* ← aggiungi qui le altre categorie quando mi mandi i dati */}
+                    <option value="Survival">Esplorazione</option>-
                 </select>
 
                 {/* SORT */}

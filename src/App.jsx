@@ -10,23 +10,20 @@ import HomePage from "./pages/Homepage";
 import Layout from "./layout/layout"
 import DetailPage from "./pages/DetailPage";
 import FavoritesPage from "./pages/FavoritesPage";
+import Contatti from "./pages/Contatti";
 
 export default function App() {
     return (
         <VideogameProvider>
             <BrowserRouter>
 
-                {/*
-                    ✅ CompareModal sta QUI, fuori dalle Route.
-                    Legge isCompareOpen dal context e si mostra
-                    su qualsiasi pagina l'utente stia visitando.
-                */}
                 <CompareModal />
                 <Layout>
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/favorites" element = {<FavoritesPage/>}/>
                         <Route path="/game/:id" element={<DetailPage />} />
+                        <Route path="/contatti" element={<Contatti/>}/>
                     </Routes>
 
                 </Layout>

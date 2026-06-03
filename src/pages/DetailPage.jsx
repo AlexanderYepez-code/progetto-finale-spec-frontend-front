@@ -78,19 +78,19 @@ function GameDetail() {
                                 {/* META */}
                                 <div className="game-detail__meta">
                                     <div className="game-detail__meta-card">
-                                        <span>⭐ Rating</span>
+                                        <span><i className="bi bi-star-fill"></i> Rating</span>
                                         <strong>{game.rating}</strong>
                                     </div>
                                     <div className="game-detail__meta-card">
-                                        <span>🎮 Metacritic</span>
+                                        <span><i className="bi bi-controller"></i> Metacritic</span>
                                         <strong>{game.metacritic}</strong>
                                     </div>
                                     <div className="game-detail__meta-card">
-                                        <span>🔞 PEGI</span>
+                                        <span><i className="bi bi-explicit"></i> PEGI</span>
                                         <strong>{game.pegi}</strong>
                                     </div>
                                     <div className="game-detail__meta-card">
-                                        <span>💰 Prezzo</span>
+                                        <span><i className="bi bi-currency-euro"></i> Prezzo</span>
                                         <strong>{game.price}€</strong>
                                     </div>
                                 </div>
@@ -101,31 +101,31 @@ function GameDetail() {
                                         className={`game-detail__fav ${isFav ? "is-active" : ""}`}
                                         onClick={() => toggleFavorite(game)}
                                     >
-                                        {isFav ? "♥ Nei preferiti" : "♡ Aggiungi ai preferiti"}
+                                        {isFav ?<i className="bi bi-heart"></i>  :<i className="bi bi-heart-fill"></i> }
                                     </button>
 
                                     <button
                                         className={`game-detail__compare ${inCompare ? "is-active" : ""}`}
                                         onClick={() => toggleCompare(game)}
                                     >
-                                        {inCompare ? "✔ Nel confronto" : "⇄ Confronta"}
+                                        <i className="bi bi-arrow-left-right"></i>
                                     </button>
 
                                     <button
-                                        className="back-btn"
+                                        className="back-btn game-detail__compare"
                                         onClick={() => navigate(-1)}
                                     >
-                                        ← Indietro
+                                        Indietro
                                     </button>
                                 </div>
 
                                 {/* STATUS */}
                                 <div className="game-detail__status">
                                     {isFav && (
-                                        <p className="status fav">❤️ Questo gioco è nei tuoi preferiti</p>
+                                        <p className="status fav">Questo gioco è nei tuoi preferiti</p>
                                     )}
                                     {inCompare && (
-                                        <p className="status compare">🔄 Incluso nel confronto</p>
+                                        <p className="status compare"> Incluso nel confronto</p>
                                     )}
                                 </div>
 
